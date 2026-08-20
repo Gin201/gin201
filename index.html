@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>杜烨辰 | 个人履历 | AI探索者</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN for zero-build execution) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#FFFDF0',
+                        'neo-green': '#A3E635',
+                        'neo-purple': '#C084FC',
+                        'neo-yellow': '#FDE047',
+                        'neo-blue': '#38BDF8',
+                        'neo-orange': '#FB923C'
+                    },
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 内联 CSS 补丁 (Neo-Brutalism Physics & Print) -->
+    <style>
+        /* 基础与背景 */
+        body {
+            background-color: #FFFDF0;
+            background-image: radial-gradient(#000 2px, transparent 2px);
+            background-size: 20px 20px;
+            overflow-x: hidden; /* 严防阴影导致横向溢出 */
+            scroll-behavior: smooth;
+        }
+
+        /* 粗黑中文字体兜底 */
+        h1, h2, h3, h4, h5, h6, .font-black {
+            font-family: "Space Grotesk", "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif;
+            font-weight: 900;
+        }
+
+        /* 新丑风核心类 (Neo-Brutalism Utilities) */
+        .neo-border { border: 3px solid #000; }
+        .neo-border-sm { border: 2px solid #000; }
+        .neo-shadow { box-shadow: 4px 4px 0px 0px #000; }
+        .neo-shadow-sm { box-shadow: 2px 2px 0px 0px #000; }
+        
+        /* 物理按压微交互 */
+        .neo-hover { transition: all 150ms ease-in-out; }
+        .neo-hover:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #000;
+        }
+        .neo-hover:active {
+            transform: translate(4px, 4px);
+            box-shadow: none;
+        }
+        
+        /* 卡片悬浮微交互 */
+        .neo-card-hover { transition: all 200ms ease-in-out; }
+        .neo-card-hover:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #000;
+        }
+
+        /* 隐藏滚动条 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 打印样式支持 */
+        @media print {
+            body { 
+                background: #FFF !important; 
+                padding: 0 !important;
+            }
+            .no-print { display: none !important; }
+            .print-show { display: block !important; }
+            .tab-content { display: block !important; margin-bottom: 20px; page-break-inside: avoid; }
+            * { 
+                box-shadow: none !important; 
+                transform: none !important; 
+                color: #000 !important; 
+                border-color: #000 !important; 
+            }
+            .neo-bg { background-color: #FFF !important; }
+            a { text-decoration: none !important; }
+        }
+
+        /* 减少动效 (无障碍) */
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; transform: none !important; }
+        }
+    </style>
+</head>
+<body class="text-black antialiased pt-20 md:pt-24 pb-12 selection:bg-neo-green selection:text-black">
+
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-neo-bg neo-border-b border-b-[3px] border-black px-4 py-3 md:px-8 flex justify-between items-center no-print shadow-[0_4px_0px_0px_#000]">
+        <div class="font-black text-xl md:text-2xl tracking-tighter uppercase cursor-pointer" onclick="window.scrollTo(0,0)">
+            DUYECHEN<span class="text-neo-blue">_</span>
+        </div>
+        <div class="flex items-center gap-3 md:gap-4">
+            <button onclick="window.print()" class="neo-border-sm bg-neo-yellow neo-shadow-sm neo-hover px-3 py-1.5 font-bold text-sm flex items-center gap-1">
+                <i class="ri-printer-line"></i> <span class="hidden md:inline">Print PDF</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主体容器 -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 space-y-8 md:space-y-12" id="app">
+        <!-- JS 动态渲染区 -->
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="max-w-5xl mx-auto px-4 mt-16 text-center font-bold text-sm border-t-[3px] border-black pt-6 pb-8">
+        <p>© <span id="currentYear"></span> 杜烨辰 (Du Yechen) - Lifelong Learner. Handcrafted with Code & Logic.</p>
+    </footer>
+
+    <!-- 微信二维码弹窗 Modal -->
+    <div id="wechatModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4 no-print">
+        <div class="bg-white neo-border neo-shadow w-full max-w-sm relative">
+            <button onclick="toggleModal(false)" class="absolute -top-4 -right-4 bg-neo-orange w-10 h-10 rounded-full neo-border neo-shadow-sm neo-hover flex justify-center items-center font-black text-xl z-10">
+                <i class="ri-close-line"></i>
+            </button>
+            <div class="p-4 bg-neo-green neo-border-b border-b-[3px] border-black font-black text-lg flex items-center gap-2">
+                <i class="ri-wechat-fill"></i> 扫码沟通
+            </div>
+            <div class="p-6 flex justify-center bg-neo-bg">
+                <img src="31.jpg" alt="WeChat QR Code" class="w-full max-w-[240px] neo-border" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\'><rect width=\'100%\' height=\'100%\' fill=\'%23FFF\'/><text x=\'50%\' y=\'50%\' text-anchor=\'middle\' dominant-baseline=\'middle\' font-size=\'14\' fill=\'%23000\'>[二维码占位 - 请确保 31.jpg 在同级目录]</text></svg>'">
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] bg-black text-white px-4 py-2 font-bold text-sm neo-shadow transition-all duration-300 opacity-0 pointer-events-none transform translate-y-4">
+        已复制到剪贴板！
+    </div>
+
+    <!-- 数据驱动与逻辑脚本 -->
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // 颜色池（碰撞色彩）
+        const colors = ['bg-neo-green', 'bg-neo-purple', 'bg-neo-yellow', 'bg-neo-blue', 'bg-neo-orange', 'bg-white'];
+
+        // --- 数据定义 ---
+        // 简历语调：务实、渴望学习、脚踏实地。
+        const RESUME_DATA = {
+            header: {
+                name: "杜烨辰",
+                title: "AI 探索者 / 持续学习者 / 扎实工程实践者",
+                slogan: "“保持空杯心态，用代码与自律探寻技术边界；随时准备接受新挑战，做靠谱的团队基石。”",
+                contacts: {
+                    phone: ["166", "0196", "650"], // 简单分段防爬
+                    email: ["2971665776", "qq.com"],
+                    address: "江苏省苏州市姑苏区",
+                    wechat: "31.jpg"
+                }
+            },
+            metrics: [
+                { title: "学业成绩", value: "Top 5%", desc: "综合排名优异，连续获一等奖学金", color: "bg-neo-green" },
+                { title: "专业认证", value: "20+", desc: "系统考取大模型/RAG/智能体相关认证", color: "bg-neo-purple" },
+                { title: "社区义工", value: "50+ hrs", desc: "深度参与基层敬老与课业辅导服务", color: "bg-neo-yellow" },
+                { title: "行政文职", value: "0 差错", desc: "核对整理 500+ 份档案数据零遗漏", color: "bg-neo-blue" }
+            ],
+            tabs: ["实践经历", "教育与荣誉", "技能图谱", "资质与成果库"],
+            experience: [
+                {
+                    title: "班长 & 课代表",
+                    org: "吴县中学学生会 / 班级管理",
+                    tags: ["执行拆解", "服务协调", "倾听与调解"],
+                    points: [
+                        "将学期长期目标细化为周度行动清单，配合班主任维护日常教学秩序，班级学期综合考评位列年级前列。",
+                        "主导筹划多项班级文体活动与主题班会，负责人员分工与后勤保障，活动平均参与度超 95%。",
+                        "密切关注同学情绪状态与合作痛点，主动承担调解工作，妥善化解同伴分歧，做好师生间的信息桥梁。"
+                    ]
+                },
+                {
+                    title: "长期志愿者 (核心成员)",
+                    org: "校庆志愿服务 & 社区公益",
+                    tags: ["突发应对", "基层服务", "同理心培育"],
+                    points: [
+                        "在 80 周年校庆中承担来宾引导与突发流程协助，保障百人级会场衔接顺畅，荣获校方专项表彰。",
+                        "深入社区基层开展老年人关怀、环境治理及青少年课业辅导，在服务中锤炼沟通耐性与社会责任感。"
+                    ]
+                },
+                {
+                    title: "学生助理 (文职支持)",
+                    org: "学校教务处与年级组",
+                    tags: ["严谨细致", "数据整理"],
+                    points: [
+                        "主动承担基础行政支持工作，协助老师完成超过 500 份学生档案与教学数据的核对、录入与归档。",
+                        "保持全程零差错率，通过扎实的执行力获得指导教师的高度认可。"
+                    ]
+                }
+            ],
+            education: {
+                school: "江苏省苏州市吴县中学（本部）",
+                info: "理科方向 | 综合成绩位列年级前 5%",
+                desc: "具备严谨的数理推导基础与扎实的逻辑思维能力。获评“优秀毕业生”，并入选共青团“优秀团员”。"
+            },
+            awards: [
+                { name: "姑苏区“区长杯”排球赛季军", img: ["1.jpg", "6.jpg"] },
+                { name: "校级三好学生 (5次获得)", img: ["3.jpg"] },
+                { name: "80周年校庆优秀志愿者", img: ["5.jpg"] },
+                { name: "校级一等奖学金", img: [] },
+                { name: "中国共产党青年团优秀团员", img: [] }
+            ],
+            skills: [
+                {
+                    category: "大模型应用探索（实践中持续精进）",
+                    color: "bg-neo-green",
+                    items: [
+                        "深入研读并实践 Prompt 工程、模型微调 (Fine-tuning)、RAG 知识检索增强及 Agent 智能体构建全流程。",
+                        "依托阿里云百炼、科大讯飞星愿 MaaS、百度智能云等平台，在前辈指引下动手搭建轻量级大模型落地演示 Demo。",
+                        "熟练使用 Python 编写自动化处理脚本，扎实学习数据清洗、特征提取与模型接入等基础工程化闭环。"
+                    ]
+                },
+                {
+                    category: "技术追踪与产品洞察",
+                    color: "bg-neo-yellow",
+                    items: [
+                        "积极追踪 LLM 开源生态 (LangChain, LlamaIndex)，通过实践笔记记录学习过程，保持长期学习习惯。",
+                        "具备基础的数据可视化与业务分析理解力，善于利用 AIGC 工具 (如 PAI ArtLab) 探索辅助图文内容生产。"
+                    ]
+                },
+                {
+                    category: "自我管理与团队协作",
+                    color: "bg-neo-blue",
+                    items: [
+                        "【强执行力与自律】保持每周 3 次 (周一/二/五) 系统化力量与体能训练，精力充沛，具备优秀的抗压能力。",
+                        "【团队同理心】长期热爱排球、篮球等团队运动，注重团队默契；擅长倾听需求，将复杂技术逻辑通俗化表达。"
+                    ]
+                }
+            ],
+            certifications: {
+                ai_certs_imgs: ["2.jpg", "4.jpg", ...Array.from({length: 26}, (_, i) => `${i + 9}.png`)], // 2,4 还有 9-34
+                docs: [
+                    { file: "7.docx", name: "每日思想总结随笔" },
+                    { file: "8.docx", name: "基础经济学思考笔记" }
+                ],
+                text_list: [
+                    "国际培训中心 (ITCILO) 人工智能证书",
+                    "达摩院人工智能训练师认证（初/高级）",
+                    "阿里云大模型 Clouder 认证系列（百炼智能体/PAI ArtLab/RAG/Spring AI等）",
+                    "科大讯飞大模型系列认证（Prompt/微调/Agent/RAG）",
+                    "Datawhale 联合认证系列（AI+编程/数据分析/LM/Fine-tuning等）",
+                    "华为云微认证（昇腾YOLOv8/CodeArts实战等）"
+                ]
+            }
+        };
+
+        // --- 工具函数 ---
+        // 随机轻微旋转角 (Stickers)
+        const getRandomRotation = () => `transform: rotate(${Math.random() * 4.5 - 2}deg);`;
+        // 获取联系方式
+        const getPhone = () => RESUME_DATA.header.contacts.phone.join("");
+        const getEmail = () => RESUME_DATA.header.contacts.email.join("@");
+
+        const copyToClipboard = (text) => {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('opacity-0', 'translate-y-4');
+                setTimeout(() => toast.classList.add('opacity-0', 'translate-y-4'), 2000);
+            });
+        };
+
+        const toggleModal = (show) => {
+            const modal = document.getElementById('wechatModal');
+            if(show) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        };
+
+        // --- 渲染模块 ---
+        const renderHeader = () => {
+            const { name, title, slogan } = RESUME_DATA.header;
+            return `
+                <header class="neo-box bg-white p-6 md:p-10 relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-neo-green rounded-full neo-border z-0 opacity-50"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-6">
+                        <div class="space-y-4">
+                            <h1 class="text-5xl md:text-7xl font-black tracking-tight">${name}</h1>
+                            <div class="flex flex-wrap gap-2">
+                                ${title.split(' / ').map(t => `<span class="neo-sticker bg-neo-yellow text-sm md:text-base" style="${getRandomRotation()}">${t}</span>`).join('')}
+                            </div>
+                            <blockquote class="text-gray-800 font-bold border-l-[4px] border-black pl-4 my-4 max-w-2xl bg-neo-bg/50 py-2 pr-2">
+                                ${slogan}
+                            </blockquote>
+                        </div>
+                        
+                        <div class="flex flex-col gap-3 min-w-[200px]">
+                            <button onclick="copyToClipboard('${getPhone()}')" class="neo-btn bg-white px-4 py-2 flex items-center gap-2 justify-start font-bold">
+                                <i class="ri-phone-fill text-xl"></i> <span class="hidden md:inline">获取电话</span> <span class="md:hidden">${getPhone()}</span>
+                            </button>
+                            <button onclick="copyToClipboard('${getEmail()}')" class="neo-btn bg-white px-4 py-2 flex items-center gap-2 justify-start font-bold">
+                                <i class="ri-mail-fill text-xl"></i> <span class="hidden md:inline">复制邮箱</span> <span class="md:hidden text-sm">${getEmail()}</span>
+                            </button>
+                            <button onclick="toggleModal(true)" class="neo-btn bg-neo-green px-4 py-2 flex items-center gap-2 justify-start font-bold">
+                                <i class="ri-wechat-fill text-xl"></i> 扫码微信
+                            </button>
+                        </div>
+                    </div>
+                </header>
+            `;
+        };
+
+        const renderMetrics = () => {
+            return `
+                <section class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    ${RESUME_DATA.metrics.map(m => `
+                        <div class="neo-box ${m.color} p-4 md:p-6 flex flex-col justify-between neo-card-hover">
+                            <h3 class="font-black text-sm md:text-base uppercase border-b-2 border-black pb-2 mb-3">${m.title}</h3>
+                            <div>
+                                <div class="text-3xl md:text-4xl font-black tracking-tighter mb-1">${m.value}</div>
+                                <p class="text-xs md:text-sm font-bold leading-tight">${m.desc}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </section>
+            `;
+        };
+
+        const renderTabsMenu = () => {
+            return `
+                <div class="flex flex-wrap gap-2 md:gap-4 border-b-[3px] border-black pb-4 sticky top-[60px] md:top-[72px] bg-neo-bg z-40 pt-4 no-print" role="tablist">
+                    ${RESUME_DATA.tabs.map((tab, idx) => `
+                        <button class="neo-btn font-black px-4 py-2 md:px-6 md:py-3 text-sm md:text-base bg-white focus:bg-neo-green active-tab-btn" 
+                                data-target="tab-${idx}" role="tab" aria-selected="${idx === 0}">
+                            ${tab}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        };
+
+        // Tab 1: 实践经历
+        const renderExperience = () => {
+            return RESUME_DATA.experience.map(exp => `
+                <div class="neo-box bg-white p-5 md:p-8 mb-6 relative pl-8 md:pl-12">
+                    <div class="absolute left-0 top-0 bottom-0 w-3 md:w-5 bg-neo-purple border-r-[3px] border-black"></div>
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-4 gap-2">
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-black">${exp.title}</h3>
+                            <h4 class="font-bold text-gray-700 mt-1"><i class="ri-building-line"></i> ${exp.org}</h4>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            ${exp.tags.map(tag => `<span class="neo-sticker bg-neo-bg text-xs" style="${getRandomRotation()}">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mt-4">
+                        ${exp.points.map(p => `
+                            <li class="flex items-start gap-2 font-bold text-sm md:text-base">
+                                <i class="ri-play-fill mt-1 text-neo-orange"></i> <span>${p}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        };
+
+        // Tab 2: 教育与荣誉
+        const renderEduAndAwards = () => {
+            let html = `
+                <div class="neo-box bg-neo-blue p-6 md:p-8 mb-8">
+                    <h3 class="text-2xl font-black border-b-[3px] border-black pb-2 mb-4"><i class="ri-graduation-cap-fill"></i> 教育背景</h3>
+                    <div class="font-black text-xl bg-white neo-border-sm inline-block px-3 py-1 mb-3 shadow-[2px_2px_0px_0px_#000]">${RESUME_DATA.education.school}</div>
+                    <p class="font-bold text-lg mb-2 bg-neo-bg px-2 inline-block border-2 border-black">${RESUME_DATA.education.info}</p>
+                    <p class="font-bold bg-white p-3 neo-border-sm mt-2">${RESUME_DATA.education.desc}</p>
+                </div>
+                <h3 class="text-2xl font-black mb-4 flex items-center gap-2"><i class="ri-medal-fill text-neo-yellow drop-shadow-[2px_2px_0px_#000]"></i> 荣誉与证明</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            `;
+            
+            RESUME_DATA.awards.forEach((award, i) => {
+                const color = colors[i % (colors.length - 1)]; // 不用纯白
+                html += `
+                    <div class="neo-box ${color} p-4 md:p-5 flex flex-col justify-between">
+                        <h4 class="font-black text-lg mb-3">${award.name}</h4>
+                        ${award.img.length > 0 ? `
+                            <div class="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+                                ${award.img.map(imgSrc => `
+                                    <img src="${imgSrc}" alt="${award.name}" class="h-24 w-auto object-cover neo-border-sm bg-white" loading="lazy"
+                                         onerror="this.style.display='none'">
+                                `).join('')}
+                            </div>
+                        ` : `<div class="text-sm font-bold text-gray-800 italic mt-auto">校级认定资质归档</div>`}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            return html;
+        };
+
+        // Tab 3: 技能图谱
+        const renderSkills = () => {
+            return `
+                <div class="space-y-6">
+                    ${RESUME_DATA.skills.map(skill => `
+                        <div class="neo-box bg-white overflow-hidden">
+                            <h3 class="font-black text-lg md:text-xl p-4 border-b-[3px] border-black ${skill.color}">${skill.category}</h3>
+                            <div class="p-4 md:p-6">
+                                <ul class="space-y-4">
+                                    ${skill.items.map(item => `
+                                        <li class="flex items-start gap-3 font-bold text-base leading-relaxed border-b-2 border-gray-100 pb-3 last:border-0 last:pb-0">
+                                            <div class="bg-black text-white w-6 h-6 flex items-center justify-center font-black mt-0.5 shrink-0 neo-border-sm">*</div>
+                                            <span>${item}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        };
+
+        // Tab 4: 资质库 (AI证书及文档)
+        const renderCertGallery = () => {
+            let html = `
+                <div class="neo-box bg-neo-yellow p-4 md:p-6 mb-8 font-bold border-l-[8px] border-black">
+                    <p>作为持续学习者，在实践过程中系统性考取了涵盖 Prompt 工程、RAG、Agent 搭建及数据分析等多个领域的技术认证。</p>
+                </div>
+                
+                <h3 class="font-black text-xl mb-4 border-b-4 border-black inline-block pr-8 pb-1">认证矩阵列表</h3>
+                <ul class="flex flex-wrap gap-2 mb-8">
+                    ${RESUME_DATA.certifications.text_list.map(t => `<li class="neo-sticker bg-white text-sm" style="${getRandomRotation()}">${t}</li>`).join('')}
+                </ul>
+
+                <h3 class="font-black text-xl mb-4 border-b-4 border-black inline-block pr-8 pb-1">相关学习文档记录</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    ${RESUME_DATA.certifications.docs.map(doc => `
+                        <a href="${doc.file}" download class="neo-box bg-white p-4 flex items-center gap-4 neo-hover cursor-pointer group">
+                            <div class="w-12 h-12 bg-neo-orange neo-border flex items-center justify-center font-black text-2xl group-hover:bg-neo-blue transition-colors">
+                                <i class="ri-file-word-2-fill"></i>
+                            </div>
+                            <div class="font-black flex-1 truncate">${doc.name}</div>
+                            <i class="ri-download-line text-xl font-bold"></i>
+                        </a>
+                    `).join('')}
+                </div>
+
+                <h3 class="font-black text-xl mb-4 border-b-4 border-black inline-block pr-8 pb-1">AI 与开发能力证书（展列）</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
+            `;
+            RESUME_DATA.certifications.ai_certs_imgs.forEach(img => {
+                html += `
+                    <div class="neo-box bg-white p-2 aspect-[4/3] flex items-center justify-center overflow-hidden">
+                        <img src="${img}" alt="AI Certification" class="w-full h-full object-contain" loading="lazy"
+                             onerror="this.parentElement.style.display='none'">
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            return html;
+        };
+
+        // --- 初始化构建 ---
+        const init = () => {
+            const app = document.getElementById('app');
+            
+            // 组装内容
+            let content = `
+                ${renderHeader()}
+                ${renderMetrics()}
+                ${renderTabsMenu()}
+            `;
+
+            // Tab Panels
+            const tabContents = [renderExperience(), renderEduAndAwards(), renderSkills(), renderCertGallery()];
+            
+            content += `<div class="relative w-full">`;
+            tabContents.forEach((html, idx) => {
+                // 默认显示第一个，其余隐藏。打印模式下利用 CSS 全部显示。
+                content += `
+                    <section id="tab-${idx}" class="tab-content ${idx === 0 ? 'block' : 'hidden md:print-show'} animate-[fadeIn_0.3s_ease-out]">
+                        ${html}
+                    </section>
+                `;
+            });
+            content += `</div>`;
+
+            app.innerHTML = content;
+            setupTabs();
+        };
+
+        // 标签切换逻辑
+        const setupTabs = () => {
+            const btns = document.querySelectorAll('.active-tab-btn');
+            const panels = document.querySelectorAll('.tab-content');
+
+            btns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const targetId = btn.getAttribute('data-target');
+                    
+                    // Reset all
+                    btns.forEach(b => {
+                        b.setAttribute('aria-selected', 'false');
+                        b.classList.remove('bg-neo-green');
+                        b.classList.add('bg-white');
+                    });
+                    panels.forEach(p => p.classList.add('hidden'));
+
+                    // Active selected
+                    btn.setAttribute('aria-selected', 'true');
+                    btn.classList.remove('bg-white');
+                    btn.classList.add('bg-neo-green');
+                    document.getElementById(targetId).classList.remove('hidden');
+                });
+            });
+
+            // 初始化第一个高亮
+            if(btns.length > 0) btns[0].classList.add('bg-neo-green');
+        };
+
+        // 引入简单淡入动画
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            </style>
+        `);
+
+        // 启动渲染
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
